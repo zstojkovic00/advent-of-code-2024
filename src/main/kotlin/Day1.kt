@@ -23,7 +23,7 @@ fun partTwo() {
     var leftNumbers = mutableListOf<Int>()
     var rightNumbers = mutableListOf<Int>()
 
-    File("src/main/resources/day1_p1_input.txt").forEachLine { line ->
+    File("src/main/resources/day1_input.txt").forEachLine { line ->
         val parts = line.split("   ")
         leftNumbers.add(parts[0].toInt())
         rightNumbers.add(parts[1].toInt())
@@ -58,7 +58,7 @@ private fun partOne() {
     var leftNumbers = mutableListOf<Int>()
     var rightNumbers = mutableListOf<Int>()
 
-    File("src/main/resources/day1_p1_input.txt").forEachLine { line ->
+    File("src/main/resources/day1_input.txt").forEachLine { line ->
         val parts = line.split("   ")
         leftNumbers.add(parts[0].toInt())
         rightNumbers.add(parts[1].toInt())
