@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
        after multiplying it by the number fo times that number appears in the right list.
  */
 
-fun partTwo() {
+private fun partTwo() {
     var similarityScore = 0;
     var leftNumbers = mutableListOf<Int>()
     var rightNumbers = mutableListOf<Int>()
