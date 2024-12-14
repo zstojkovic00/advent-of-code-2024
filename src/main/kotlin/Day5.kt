@@ -5,7 +5,7 @@ import java.io.File
 typealias Validation = Pair<Boolean, Pair<Int, Int>?>
 
 fun main() {
-    val input = File("src/main/resources/day5_input.txt").readText()
+    val input = File("src/main/resources/day5.txt").readText()
     partOne(input)
     partTwo(input)
 }

@@ -2,12 +2,12 @@ import org.junit.jupiter.api.Test
 import java.io.File
 import org.assertj.core.api.Assertions.assertThat
 
-private const val pathName = "src/test/resources/day5_test_input.txt"
+private const val pathName = "src/test/resources/day5.txt"
 typealias Rules = List<Pair<Int, Int>>
 typealias Pages = List<List<Int>>
 typealias Validation = Pair<Boolean, Pair<Int, Int>?>
 
-class Day5KtTest {
+class Day5Test {
     @Test
     fun `should parse input into rules and pages`() {
         val input = File(pathName).readText()
