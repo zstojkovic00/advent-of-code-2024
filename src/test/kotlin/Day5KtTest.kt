@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions.assertThat
 private const val pathName = "src/test/resources/day5_test_input.txt"
 typealias Rules = List<Pair<Int, Int>>
 typealias Pages = List<List<Int>>
+typealias Validation = Pair<Boolean, Pair<Int, Int>?>
 
 class Day5KtTest {
     @Test
@@ -37,10 +38,49 @@ class Day5KtTest {
     fun `should validate page order according to rules`() {
         val input = File(pathName).readText()
         val (rules, pages) = parse(input)
-        val orderingMap = createRulesMap(rules)
+        val rulesMap = createRulesMap(rules)
+        var times = 0
 
-        val checkOrderingRules = isPageOrderValid(pages, orderingMap)
-        assertThat(checkOrderingRules).isTrue()
+        pages.forEach { page ->
+            val validation = isPageOrderValid(page, rulesMap)
+            if (validation.first) {
+                times++
+            }
+        }
+
+        assertThat(times).isEqualTo(3)
+    }
+
+
+    @Test
+    fun `should fix incorrectly ordered pages`() {
+        val input = File(pathName).readText()
+        val (rules, pages) = parse(input)
+        val rulesMap = createRulesMap(rules)
+        var times = 0
+
+        pages.forEach { page ->
+            val validation = isPageOrderValid(page, rulesMap)
+            if (!validation.first) {
+
+                var currentPage = page.toMutableList()
+
+                while (true) {
+
+                    val currentValidation = isPageOrderValid(currentPage, rulesMap)
+                    if (currentValidation.first) {
+                        times++
+                        break
+                    }
+
+                    val (i, j) = currentValidation.second!!
+                    val temp = currentPage[i]
+                    currentPage[i] = currentPage[j]
+                    currentPage[j] = temp
+                }
+            }
+        }
+        assertThat(times).isEqualTo(3)
     }
 
     private fun parse(input: String): Pair<Rules, Pages> {
@@ -67,20 +107,23 @@ class Day5KtTest {
         return orderingMap
     }
 
-    private fun isPageOrderValid(pages: Pages, rulesMap: Map<Int, List<Int>>): Boolean {
-        for (i in pages.first().indices) {
-            val current = pages.first()[i]
 
+    private fun isPageOrderValid(page: List<Int>, rulesMap: Map<Int, List<Int>>): Validation {
+        for (i in page.indices) {
+            val current = page[i]
+            println("Current number: $current")
             for (j in 0 until i) {
-                val previous = pages.first()[j]
-                val after = rulesMap[current] ?: emptyList()
-                if (previous in after) {
-                    return false
+                val previous = page[j]
+                println("Previous number: $previous")
+                val afterAfterCurrent = rulesMap[current] ?: emptyList()
+                println("Numbers which must come before current number: $afterAfterCurrent")
+                if (previous in afterAfterCurrent) {
+                    println("False")
+                    return Validation(false, j to i)
                 }
             }
         }
-        return true
+        return Validation(true, null)
     }
-
 }
 
