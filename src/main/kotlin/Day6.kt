@@ -7,6 +7,11 @@ private const val pathName = "src/main/resources/day6.txt"
 fun main() {
     val lines = File(pathName).readLines()
     guardGallivant(lines)
+    guardGallivant2(lines)
+}
+
+fun guardGallivant2(lines: List<String>) {
+
 }
 
 private fun guardGallivant(lines: List<String>) {
